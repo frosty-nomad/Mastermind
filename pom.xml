@@ -72,7 +72,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>seis601.mastermind/seis601.mastermind.HelloApplication</mainClass>
+              <mainClass>seis601.mastermind/seis601.mastermind.MastermindApplication</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
