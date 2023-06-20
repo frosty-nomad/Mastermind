@@ -10,5 +10,11 @@ public class CodePeg {
     }
 
     // Public methods
-    // getColor()
+    public Color getColor(){ return color;}
+
+    public static CodePeg generateRandomCodePeg(){
+        int random = (int) (Math.random() * 6);
+        return new CodePeg(Color.values()[random]);
+    }
+
 }

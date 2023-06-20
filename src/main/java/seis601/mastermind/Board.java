@@ -1,17 +1,34 @@
 package seis601.mastermind;
 
 public class Board {
-    private int guesses;
+    private final int guesses;
     private Row[] rows;
-    private CodePeg[] keyCode;
+    private CodePeg[] keyCode;  //answer
+    private int currentGuess;
 
     // Constructors
-    // Board(int guesses)
+     public Board(int guesses){
+         this.guesses = guesses;
+         keyCode = new CodePeg[4];
+         rows = new Row[guesses];
+         currentGuess = 0;
+     }
 
     // Public methods
-    // initializeBoard(int guesses)
+     public void initializeBoard(int guesses){
+         currentGuess = 0;
+         keyCode[0] = CodePeg.generateRandomCodePeg();
+         keyCode[1] = CodePeg.generateRandomCodePeg();
+         keyCode[2] = CodePeg.generateRandomCodePeg();
+         keyCode[3] = CodePeg.generateRandomCodePeg();
+     }
     // addGuess(CodePeg[] guess)
-    // isWinner()
-    // isFull()
+//     public boolean isWinner(){
+//     }
+
+     public boolean isFull(){
+        return currentGuess >= guesses;
+     } //ran out of chance
+
     // getGuesses()
 }

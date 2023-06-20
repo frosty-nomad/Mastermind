@@ -5,8 +5,12 @@ public class KeyPeg {
     public enum Color { White, Black }
 
     // Constructors
-    // KeyPeg(Color color)
+    public KeyPeg(Color color){
+        this.color = color;
+    }
 
     // Public methods
-    // setColor()
+    public void setColor(Color color){
+        this.color = color;
+    }
 }
