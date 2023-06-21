@@ -43,10 +43,7 @@ public class Row {
 
     public Boolean isWinner(){
         int [] colorCount = keyPegColorCount(); //order = None, White, Black
-        if (colorCount[2] == 4){
-            return true;
-        }
-        return false;
+        return colorCount[2] == 4;
     }
 
     // Private methods
