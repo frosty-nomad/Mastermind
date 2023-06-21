@@ -10,6 +10,11 @@ public class Row {
         keyPegs = new KeyPeg[] { new KeyPeg(), new KeyPeg(), new KeyPeg(), new KeyPeg() };
     }
 
+    public Row(CodePeg[] guess, CodePeg[] keyCodes){
+        codePegs = guess;
+        setKeyPegs(keyCodes);
+    }
+
     // Public methods
     public CodePeg getCodePeg(int index) {
         return index < codePegs.length ? codePegs[index] : null;
@@ -30,7 +35,6 @@ public class Row {
     }
 
     // bool isWinner()
-}
     // Private methods
     private void setKeyPegs(CodePeg[] keyCodes){
         keyPegs = new KeyPeg[4];
@@ -41,17 +45,17 @@ public class Row {
                 if (codePegs[j].isValid()) {
                     if (keyCodes[i].isValid()){
                         if (keyCodes[j].getColor() == codePegs[j].getColor()) {
-                            keyPegs[keyPegCount] = new KeyPeg(KeyPeg.Color.Black);
+                            keyPegs[keyPegCount] = new KeyPeg(KeyPeg.KeyColor.Black);
                             keyCodes[j].setValid(false);
                             codePegs[j].setValid(false);
                             keyPegCount ++;
                         }
                         else if (keyCodes[i].getColor() == codePegs[j].getColor()) {
                             if (j == i) {
-                                keyPegs[keyPegCount] = new KeyPeg(KeyPeg.Color.Black);
+                                keyPegs[keyPegCount] = new KeyPeg(KeyPeg.KeyColor.Black);
                             }
                             else {
-                                keyPegs[keyPegCount] = new KeyPeg(KeyPeg.Color.White);
+                                keyPegs[keyPegCount] = new KeyPeg(KeyPeg.KeyColor.White);
                             }
                             keyCodes[i].setValid(false);
                             codePegs[j].setValid(false);
@@ -62,14 +66,14 @@ public class Row {
             }
         }
         for (int c = keyPegCount ; c < 4; c ++){
-            keyPegs[c] = new KeyPeg(KeyPeg.Color.None);
+            keyPegs[c] = new KeyPeg(KeyPeg.KeyColor.None);
         }
     }
 
     // Public methods
     public Boolean isWinner(){
         for (KeyPeg peg: keyPegs){
-            if (peg.getColor() != KeyPeg.Color.Black){
+            if (peg.getKeyColor() != KeyPeg.KeyColor.Black){
                 return false;
             }
         }

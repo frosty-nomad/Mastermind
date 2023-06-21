@@ -11,6 +11,9 @@ public class Board {
         this.guesses = guesses;
         keyCode = new CodePeg[4];
         rows = new Row[guesses];
+        for (int i = 0; i < guesses; i++) {
+            rows[i] = new Row();
+        }
         currentGuess = 0;
         initializeBoard();
     }
