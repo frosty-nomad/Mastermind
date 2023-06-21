@@ -1,7 +1,7 @@
 package seis601.mastermind;
 
 public class Board {
-    private final int guesses;
+    private final int guesses;   //how many chances total
     private Row[] rows;
     private CodePeg[] keyCode;  //answer
     private int currentGuess;
@@ -12,23 +12,34 @@ public class Board {
          keyCode = new CodePeg[4];
          rows = new Row[guesses];
          currentGuess = 0;
+         initializeBoard();
      }
 
+
     // Public methods
-     public void initializeBoard(int guesses){
+     public void initializeBoard(){
          currentGuess = 0;
-         keyCode[0] = CodePeg.generateRandomCodePeg();
-         keyCode[1] = CodePeg.generateRandomCodePeg();
-         keyCode[2] = CodePeg.generateRandomCodePeg();
-         keyCode[3] = CodePeg.generateRandomCodePeg();
+         for (int i = 0; i <= 3; i ++) {
+             keyCode[i] = CodePeg.generateRandomCodePeg();
+         }
      }
-    // addGuess(CodePeg[] guess)
-//     public boolean isWinner(){
-//     }
+     public void addGuess(CodePeg[] guess) {
+         rows[currentGuess] = new Row(guess, keyCode);
+         currentGuess ++;
+     }
+
+     public boolean isWinner(){
+         if (currentGuess < 0) {
+             return false;
+         }
+         return rows[currentGuess -1].isWinner();
+     }
 
      public boolean isFull(){
         return currentGuess >= guesses;
      } //ran out of chance
 
-    // getGuesses()
+     public int getGuesses(){
+         return currentGuess;
+     }
 }
