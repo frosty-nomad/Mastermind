@@ -4,15 +4,17 @@ import javafx.scene.paint.Color;
 
 public class CodePeg {
     private CodeColor codeColor;
-
+    private Boolean isValid;
     public enum CodeColor { None, Red, Blue, Yellow, Green, White, Black }
 
     // Constructors
     public CodePeg() {
         setCodeColor(CodeColor.None);
+        isValid = true;
     }
     public CodePeg(CodeColor codeColor) {
         setCodeColor(codeColor);
+        isValid = true;
     }
 
     // Public methods
@@ -52,5 +54,13 @@ public class CodePeg {
     public static CodePeg generateRandomCodePeg(){
         int random = (int) (Math.random() * 6);
         return new CodePeg(CodeColor.values()[random]);
+    }
+
+    public boolean isValid(){
+        return isValid;
+    }
+
+    public void setValid(Boolean used){
+        isValid = used;
     }
 }
