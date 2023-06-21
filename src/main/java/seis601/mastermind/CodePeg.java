@@ -48,4 +48,9 @@ public class CodePeg {
                 return Color.BURLYWOOD;
         }
     }
+
+    public static CodePeg generateRandomCodePeg(){
+        int random = (int) (Math.random() * 6);
+        return new CodePeg(CodeColor.values()[random]);
+    }
 }
