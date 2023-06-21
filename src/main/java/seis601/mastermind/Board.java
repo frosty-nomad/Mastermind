@@ -15,19 +15,23 @@ public class Board {
             rows[i] = new Row();
         }
         currentGuess = 0;
-        initializeBoard();
+        generateKeyCode();
     }
 
     // Public methods
-     public void initializeBoard(){
+     public void generateKeyCode(){
          currentGuess = 0;
          for (int i = 0; i <= 3; i ++) {
              keyCode[i] = CodePeg.generateRandomCodePeg();
          }
      }
-     public void addGuess(CodePeg[] guess) {
-         rows[currentGuess] = new Row(guess, keyCode);
-         currentGuess ++;
+     public int addGuess(CodePeg[] guess) {
+        if (isFull()) {
+            return -1;
+        }
+        rows[currentGuess] = new Row(guess, keyCode);
+        currentGuess++;
+        return 0;
      }
 
      public boolean isWinner(){
@@ -47,5 +51,9 @@ public class Board {
 
     public int getGuesses() {
         return guesses;
+    }
+
+    public CodePeg[] getKeyCode(){  //for unit testing
+        return keyCode;
     }
 }

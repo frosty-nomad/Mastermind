@@ -1,5 +1,7 @@
 package seis601.mastermind;
 
+import javafx.scene.paint.Color;
+
 public class Row {
     private CodePeg[] codePegs;
     private KeyPeg[] keyPegs;
@@ -12,6 +14,7 @@ public class Row {
 
     public Row(CodePeg[] guess, CodePeg[] keyCodes){
         codePegs = guess;
+        keyPegs = new KeyPeg[] { new KeyPeg(), new KeyPeg(), new KeyPeg(), new KeyPeg() };
         setKeyPegs(keyCodes);
     }
 
@@ -29,59 +32,62 @@ public class Row {
         return index < keyPegs.length ? keyPegs[index] : null;
     }
 
+    public KeyPeg[] getKeyPegs(){
+        return keyPegs;
+    }
+
     public void setKeyPeg(int index, KeyPeg.KeyColor keyColor) {
         if (index < keyPegs.length)
             keyPegs[index].setKeyColor(keyColor);
     }
 
-    // bool isWinner()
+    public Boolean isWinner(){
+        int [] colorCount = keyPegColorCount(); //order = None, White, Black
+        if (colorCount[2] == 4){
+            return true;
+        }
+        return false;
+    }
+
     // Private methods
     private void setKeyPegs(CodePeg[] keyCodes){
-        keyPegs = new KeyPeg[4];
         int keyPegCount = 0;
-//        this.keyCode = keyCode;
         for (int i = 0; i <= 3; i ++) {
             for (int j = 0; j <= 3; j++){
                 if (codePegs[j].isValid()) {
                     if (keyCodes[i].isValid()){
-                        if (keyCodes[j].getColor() == codePegs[j].getColor()) {
-                            keyPegs[keyPegCount] = new KeyPeg(KeyPeg.KeyColor.Black);
-                            keyCodes[j].setValid(false);
-                            codePegs[j].setValid(false);
-                            keyPegCount ++;
-                        }
-                        else if (keyCodes[i].getColor() == codePegs[j].getColor()) {
-                            if (j == i) {
-                                keyPegs[keyPegCount] = new KeyPeg(KeyPeg.KeyColor.Black);
+                        if (keyCodes[j].isValid()){
+                            if (codePegs[j].getColor() == keyCodes[j].getColor()) {
+                                keyPegs[keyPegCount].setKeyColor(KeyPeg.KeyColor.Black);
+                                keyCodes[j].setValid(false);
+                                codePegs[j].setValid(false);
+                                keyPegCount ++;
                             }
-                            else {
-                                keyPegs[keyPegCount] = new KeyPeg(KeyPeg.KeyColor.White);
+                            else if (keyCodes[i].getColor() == codePegs[j].getColor()) {
+                                keyPegs[keyPegCount].setKeyColor(KeyPeg.KeyColor.White);
+                                keyCodes[i].setValid(false);
+                                codePegs[j].setValid(false);
+                                keyPegCount++;
                             }
-                            keyCodes[i].setValid(false);
-                            codePegs[j].setValid(false);
-                            keyPegCount++;
                         }
                     }
                 }
             }
         }
-        for (int c = keyPegCount ; c < 4; c ++){
-            keyPegs[c] = new KeyPeg(KeyPeg.KeyColor.None);
-        }
     }
 
-    // Public methods
-    public Boolean isWinner(){
-        for (KeyPeg peg: keyPegs){
-            if (peg.getKeyColor() != KeyPeg.KeyColor.Black){
-                return false;
+    private int[] keyPegColorCount () {
+        int[] result = new int[3];  //order = None, White, Black
+        for (KeyPeg peg : keyPegs) {
+            if (peg.getColor() == Color.BURLYWOOD) {
+                result[0]++;
+            } else if (peg.getColor() == Color.WHITE) {
+                result[1]++;
+            } else {
+                result[2]++;
             }
         }
-        return true;
-    }
-
-    public KeyPeg[] getKeyPegs(){
-        return keyPegs;
+        return result;
     }
 }
 
