@@ -53,19 +53,17 @@ public class Row {
             for (int j = 0; j <= 3; j++){
                 if (codePegs[j].isValid()) {
                     if (keyCodes[i].isValid()){
-                        if (keyCodes[j].isValid()){
-                            if (codePegs[j].getColor() == keyCodes[j].getColor()) {
-                                keyPegs[keyPegCount].setKeyColor(KeyPeg.KeyColor.Black);
-                                keyCodes[j].setValid(false);
-                                codePegs[j].setValid(false);
-                                keyPegCount ++;
-                            }
-                            else if (keyCodes[i].getColor() == codePegs[j].getColor()) {
-                                keyPegs[keyPegCount].setKeyColor(KeyPeg.KeyColor.White);
-                                keyCodes[i].setValid(false);
-                                codePegs[j].setValid(false);
-                                keyPegCount++;
-                            }
+                        if (codePegs[j].getColor() == keyCodes[j].getColor()) {
+                            keyPegs[keyPegCount].setKeyColor(KeyPeg.KeyColor.Black);
+                            keyCodes[j].setValid(false);
+                            codePegs[j].setValid(false);
+                            keyPegCount ++;
+                        }
+                        else if (keyCodes[i].getColor() == codePegs[j].getColor()) {
+                            keyPegs[keyPegCount].setKeyColor(KeyPeg.KeyColor.White);
+                            keyCodes[i].setValid(false);
+                            codePegs[j].setValid(false);
+                            keyPegCount++;
                         }
                     }
                 }

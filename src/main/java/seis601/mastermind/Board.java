@@ -29,7 +29,7 @@ public class Board {
         if (isFull()) {
             return -1;
         }
-        rows[currentGuess] = new Row(copyCodePegs(guess), keyCode);
+        rows[currentGuess] = new Row(copyCodePegs(guess), copyCodePegs(keyCode));
         currentGuess++;
         return 0;
      }
@@ -51,10 +51,6 @@ public class Board {
 
     public int getGuesses() {
         return guesses;
-    }
-
-    public CodePeg[] getKeyCode(){  //for unit testing
-        return keyCode;
     }
 
     private CodePeg[] copyCodePegs(CodePeg[] codePegs) {
