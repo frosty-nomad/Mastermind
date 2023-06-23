@@ -11,16 +11,8 @@ import javafx.stage.Stage;
 public class MastermindApplication extends Application {
     @Override
     public void start(Stage stage) {
-        // Initialize the guess pegs.
-        CodePeg[] guessPegs = new CodePeg[] {
-            new CodePeg(CodePeg.CodeColor.Red),
-            new CodePeg(CodePeg.CodeColor.Red),
-            new CodePeg(CodePeg.CodeColor.Red),
-            new CodePeg(CodePeg.CodeColor.Red)
-        };
-
         // Build the game controls
-        GameControls controls = new GameControls(guessPegs);
+        GameControls controls = new GameControls(stage);
 
         // Build out the GridPane
         GridPane grid = new GridPane();
@@ -29,21 +21,22 @@ public class MastermindApplication extends Application {
         grid.setPadding(new Insets(10));
 
         // Add the controls to the grid
-        grid.add(controls.getCanvasBoard(), 0, 0);
-        grid.add(controls.getHBoxGuess(), 1, 0);
-        grid.add(controls.getHBoxPicker(), 0,1);
+        grid.add(controls.getHBoxGuess(), 0, 0);
+        grid.add(controls.getCanvasBoard(), 0, 1);
+        grid.add(controls.getHBoxPicker(), 0,2);
 
         // Add the GridPane to the Group
         Group group = new Group(grid);
 
         // Build the scene
-        Scene scene = new Scene(group, 480, 600);
+        Scene scene = new Scene(group);
         scene.setFill(Color.LIGHTGREEN);
 
         // Set the stage
         stage.setTitle("Mastermind");
         stage.setResizable(false);
         stage.setScene(scene);
+        stage.sizeToScene();
         stage.show();
     }
 

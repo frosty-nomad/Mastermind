@@ -1,32 +1,46 @@
 package seis601.mastermind;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class GameControls {
     private Board gameBoard;
     private int guesses;
-    private Canvas canvasBoard;
-    private HBox hboxGuess;
-    private HBox hboxPicker;
+    private final Canvas canvasBoard;
+    private HBox hBoxGuess;
+    private HBox hBoxPicker;
+    private Stage stage;
     private CodePeg[] guessPegs;
+    private Circle[] pegSelectors;
 
-    public GameControls(CodePeg[] codePegs) {
+    public GameControls(Stage stage) {
+        // Save the stage for resizing
+        this.stage = stage;
+
         // Build out initial controls.
-        initControls();
+        guessPegs = new CodePeg[] {
+                new CodePeg(CodePeg.CodeColor.Red),
+                new CodePeg(CodePeg.CodeColor.Red),
+                new CodePeg(CodePeg.CodeColor.Red),
+                new CodePeg(CodePeg.CodeColor.Red)
+        };
+        buildGuessSelector();
+        buildPegPicker();
 
         // Build the initial game board
-        initGameBoard();
+        gameBoard = new Board(guesses);
 
-        int width = (GameDraw.pegWidth * 5) + GameDraw.padding;
-        int height = GameDraw.rowHeight * guesses;
-        canvasBoard = new Canvas(width + 3, height + 3);
+        // Create the board canvas
+        canvasBoard = new Canvas();
 
+        // Draw the initial game board
         GameDraw.drawBoard(canvasBoard, gameBoard);
     }
 
@@ -35,11 +49,11 @@ public class GameControls {
     }
 
     public HBox getHBoxGuess() {
-        return hboxGuess;
+        return hBoxGuess;
     }
 
     public HBox getHBoxPicker() {
-        return hboxPicker;
+        return hBoxPicker;
     }
 
     private void alertLoser() {
@@ -66,18 +80,23 @@ public class GameControls {
         Label lblGuesses = new Label("Guesses: ");
         lblGuesses.setFont(Font.font(12));
 
-        ComboBox cboGuesses = new ComboBox();
-        cboGuesses.setValue("12");
-        cboGuesses.getItems().addAll("12", "10", "8");
+        ComboBox<Integer> cboGuesses = new ComboBox<>();
+        cboGuesses.getItems().addAll(12, 11, 10, 9, 8);
+        cboGuesses.setValue(12);
+        cboGuesses.setOnAction(e -> {
+            guesses = cboGuesses.getValue();
+            resetGame();
+        });
 
-        hboxGuess = new HBox();
-        hboxGuess.getChildren().addAll(
+        hBoxGuess = new HBox();
+        hBoxGuess.setAlignment(Pos.CENTER_LEFT);
+        hBoxGuess.getChildren().addAll(
                 lblGuesses,
                 cboGuesses
         );
 
         // Set the initial guesses
-        guesses = Integer.parseInt((String)cboGuesses.getValue());
+        guesses = cboGuesses.getValue();
     }
 
     private void buildPegPicker() {
@@ -86,33 +105,24 @@ public class GameControls {
             guessClick();
         });
 
-        hboxPicker = new HBox();
-        hboxPicker.setPadding(new Insets(0, 0, 0, 6));
-        hboxPicker.setSpacing(6);
-        hboxPicker.getChildren().addAll(
+        pegSelectors = new Circle[] {
                 pegSelector(guessPegs[0]),
                 pegSelector(guessPegs[1]),
                 pegSelector(guessPegs[2]),
                 pegSelector(guessPegs[3]),
-                guessButton
-        );
-    }
-
-    private void initControls() {
-        guessPegs = new CodePeg[] {
-                new CodePeg(CodePeg.CodeColor.Red),
-                new CodePeg(CodePeg.CodeColor.Red),
-                new CodePeg(CodePeg.CodeColor.Red),
-                new CodePeg(CodePeg.CodeColor.Red)
         };
 
-        buildGuessSelector();
-        buildPegPicker();
-    }
-
-    public void initGameBoard() {
-        gameBoard = new Board(guesses);
-        gameBoard = new Board(guesses);
+        hBoxPicker = new HBox();
+        hBoxPicker.setPadding(new Insets(0, 0, 0, 6));
+        hBoxPicker.setSpacing(6);
+        hBoxPicker.setAlignment(Pos.CENTER);
+        hBoxPicker.getChildren().addAll(
+                pegSelectors[0],
+                pegSelectors[1],
+                pegSelectors[2],
+                pegSelectors[3],
+                guessButton
+        );
     }
 
     private void guessClick() {
@@ -142,8 +152,7 @@ public class GameControls {
 
     private Circle pegSelector(CodePeg codePeg) {
         Circle circle = new Circle();
-        circle.setRadius(GameDraw.pegSize / 2);
-        circle.setFill(GameDraw.getPegFill(codePeg));
+        GameDraw.circleFill(circle, codePeg);
         circle.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             pegClick(circle, codePeg);
         });
@@ -152,12 +161,19 @@ public class GameControls {
 
     private void resetGame() {
         // Reset the guess pegs
-        for (int p = 0; p < guessPegs.length; p++) {
-            guessPegs[p].setCodeColor(CodePeg.CodeColor.Red);
+        for (CodePeg guessPeg : guessPegs) {
+            guessPeg.setCodeColor(CodePeg.CodeColor.Red);
         }
 
-        initGameBoard();
+        // Build a new game board
+        gameBoard = new Board(guesses);
         GameDraw.drawBoard(canvasBoard, gameBoard);
-        buildPegPicker();
+
+        // Reset the pegSelectors
+        for (int p = 0; p < pegSelectors.length; p++) {
+            GameDraw.circleFill(pegSelectors[p], guessPegs[p]);
+        }
+
+        stage.sizeToScene();
     }
 }
