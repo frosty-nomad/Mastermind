@@ -7,8 +7,6 @@ public class CodePeg {
     private CodeColor codeColor;
     private Boolean isValid;
     public enum CodeColor { None, Red, Blue, Yellow, Green, White, Black }
-    private static int[] getRandomNumber = new int[4];  //for unit testing
-    private static int index = 0;   //for unit testing
     public static final int CODECOLORLENGTH = CodeColor.values().length;
 
     // Constructors
@@ -55,13 +53,15 @@ public class CodePeg {
         }
     }
 
+    public static CodePeg copy(CodePeg codePeg) {
+        CodePeg newPeg = new CodePeg(codePeg.getCodeColor());
+        newPeg.setValid(codePeg.isValid());
+        return newPeg;
+    }
+
     public static CodePeg generateRandomCodePeg(){
         Random generator = new Random();
         int randomInt = generator.nextInt(1, CODECOLORLENGTH);  // returns 1 to 6
-//        randomInt = 2; //for unit testing
-//        System.out.println("number" + randomInt);  //for unit testing
-        getRandomNumber[index] = (randomInt);    //for unit testing
-        index ++;       //for unit testing
         return new CodePeg(CodeColor.values()[randomInt]);
     }
 
@@ -71,9 +71,5 @@ public class CodePeg {
 
     public void setValid(Boolean used){
         isValid = used;
-    }
-
-    public static int[] getRandomNumber() {  //for unit testing
-        return getRandomNumber;
     }
 }

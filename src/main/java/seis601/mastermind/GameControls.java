@@ -98,35 +98,28 @@ public class GameControls {
         );
     }
 
-    private void copyGuessPegs() {
-        guessPegs[0] = new CodePeg(guessPegs[0].getCodeColor());
-        guessPegs[1] = new CodePeg(guessPegs[1].getCodeColor());
-        guessPegs[2] = new CodePeg(guessPegs[2].getCodeColor());
-        guessPegs[3] = new CodePeg(guessPegs[3].getCodeColor());
-    }
-
     private void initControls() {
-        initGuessPegs();
-        buildGuessSelector();
-        buildPegPicker();
-    }
-
-    public void initGameBoard() {
-        gameBoard = new Board(guesses);
-    }
-
-    private void initGuessPegs() {
         guessPegs = new CodePeg[] {
                 new CodePeg(CodePeg.CodeColor.Red),
                 new CodePeg(CodePeg.CodeColor.Red),
                 new CodePeg(CodePeg.CodeColor.Red),
                 new CodePeg(CodePeg.CodeColor.Red)
         };
+
+        buildGuessSelector();
+        buildPegPicker();
+    }
+
+    public void initGameBoard() {
+        gameBoard = new Board(guesses);
+        gameBoard = new Board(guesses);
     }
 
     private void guessClick() {
+        // Add the guess to analyze
         gameBoard.addGuess(guessPegs);
-        copyGuessPegs();
+
+        // Re-draw the game board
         GameDraw.drawBoard(canvasBoard, gameBoard);
 
         // Check for winner
@@ -158,7 +151,11 @@ public class GameControls {
     }
 
     private void resetGame() {
-        initGuessPegs();
+        // Reset the guess pegs
+        for (int p = 0; p < guessPegs.length; p++) {
+            guessPegs[p].setCodeColor(CodePeg.CodeColor.Red);
+        }
+
         initGameBoard();
         GameDraw.drawBoard(canvasBoard, gameBoard);
         buildPegPicker();
