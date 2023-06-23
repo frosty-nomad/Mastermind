@@ -9,8 +9,8 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 
 public class GameDraw {
-    public static int padding = 6;
-    public static int pegSize = 30;
+    public static int padding = 8;
+    public static int pegSize = 35;
     public static int pegWidth = padding + pegSize;
     public static int rowHeight = pegSize + (padding * 2);
 
@@ -34,11 +34,11 @@ public class GameDraw {
         gc.fillRect(1, 1, width + 2, (rowHeight * guesses) + 2);
 
         // Draw the board
-        gc.setFill(Color.BURLYWOOD);
+        gc.setFill(Color.PEACHPUFF);
         gc.fillRect(0, 0, width, rowHeight * guesses);
 
         // Draw the code/key separator
-        gc.setStroke(Color.LIGHTGOLDENRODYELLOW);
+        gc.setStroke(Color.BEIGE);
         gc.strokeLine(width - pegWidth - 3, 0, width - pegWidth - 3, (rowHeight * guesses) - 1);
 
         for(int i = 0; i < guesses; i++) {
@@ -90,13 +90,25 @@ public class GameDraw {
 
         switch(codePeg.getCodeColor()) {
             case None:
-                stops = new Stop[] { new Stop(0, Color.LIGHTGRAY), new Stop(1, codePeg.getColor())};
+                stops = new Stop[] { new Stop(0, codePeg.getColor()), new Stop(1, Color.PERU)};
                 break;
             case Black:
                 stops = new Stop[] { new Stop(0, Color.DIMGRAY), new Stop(1, codePeg.getColor())};
                 break;
             case White:
                 stops = new Stop[] { new Stop(0, codePeg.getColor()), new Stop(1, Color.DARKGRAY)};
+                break;
+            case Blue:
+                stops = new Stop[] { new Stop(0, Color.LIGHTSKYBLUE), new Stop(1, Color.NAVY)};
+                break;
+            case Red:
+                stops = new Stop[] { new Stop(0, Color.RED), new Stop(1, Color.DARKRED.darker())};
+                break;
+            case Green:
+                stops = new Stop[] { new Stop(0, Color.PALEGREEN), new Stop(1, Color.DARKSLATEGRAY)};
+                break;
+            case Yellow:
+                stops = new Stop[] { new Stop(0, Color.YELLOW.brighter()), new Stop(1, Color.DIMGRAY)};
                 break;
             default:
                 stops = new Stop[] { new Stop(0, codePeg.getColor()), new Stop(1, Color.BLACK)};
@@ -121,7 +133,7 @@ public class GameDraw {
                 stops = new Stop[] { new Stop(0, keyPeg.getColor()), new Stop(1, Color.DARKGRAY)};
                 break;
             default:
-                stops = new Stop[] { new Stop(0, Color.LIGHTGRAY), new Stop(1, keyPeg.getColor())};
+                stops = new Stop[] { new Stop(0, keyPeg.getColor()), new Stop(1, Color.PERU)};
                 break;
         }
 

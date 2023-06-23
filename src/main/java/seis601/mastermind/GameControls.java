@@ -6,8 +6,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class GameControls {
@@ -16,6 +18,7 @@ public class GameControls {
     private final Canvas canvasBoard;
     private HBox hBoxGuess;
     private HBox hBoxPicker;
+    private VBox vBoxRules;
     private Stage stage;
     private CodePeg[] guessPegs;
     private Circle[] pegSelectors;
@@ -33,6 +36,7 @@ public class GameControls {
         };
         buildGuessSelector();
         buildPegPicker();
+        buildGameRules();
 
         // Build the initial game board
         gameBoard = new Board(guesses);
@@ -54,6 +58,10 @@ public class GameControls {
 
     public HBox getHBoxPicker() {
         return hBoxPicker;
+    }
+
+    public VBox getvBoxRules() {
+        return vBoxRules;
     }
 
     private void alertLoser() {
@@ -78,7 +86,7 @@ public class GameControls {
 
     private void buildGuessSelector() {
         Label lblGuesses = new Label("Guesses: ");
-        lblGuesses.setFont(Font.font(12));
+        lblGuesses.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 16));
 
         ComboBox<Integer> cboGuesses = new ComboBox<>();
         cboGuesses.getItems().addAll(12, 11, 10, 9, 8);
@@ -89,7 +97,7 @@ public class GameControls {
         });
 
         hBoxGuess = new HBox();
-        hBoxGuess.setAlignment(Pos.CENTER_LEFT);
+        hBoxGuess.setAlignment(Pos.CENTER);
         hBoxGuess.getChildren().addAll(
                 lblGuesses,
                 cboGuesses
@@ -101,6 +109,7 @@ public class GameControls {
 
     private void buildPegPicker() {
         Button guessButton = new Button("Guess");
+        guessButton.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 16));
         guessButton.setOnAction(e -> {
             guessClick();
         });
@@ -122,6 +131,24 @@ public class GameControls {
                 pegSelectors[2],
                 pegSelectors[3],
                 guessButton
+        );
+    }
+
+    private void buildGameRules(){
+        Label whiteKeyMeaning = new Label("White key peg: Color is correct but wrong position.");
+        Label blackKeyMeaning = new Label( "Black key peg: Color and position both correct. ");
+        Label keyPegPosition = new Label("The arrangement of the white and black key pegs does not matter. ");
+        whiteKeyMeaning.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, 15));
+        blackKeyMeaning.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, 15));
+        keyPegPosition.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, 15));
+
+        vBoxRules = new VBox();
+        vBoxRules.setSpacing(8);
+        vBoxRules.setAlignment(Pos.CENTER);
+        vBoxRules.getChildren().addAll(
+                whiteKeyMeaning,
+                blackKeyMeaning,
+                keyPegPosition
         );
     }
 
@@ -147,9 +174,10 @@ public class GameControls {
         int color = codePeg.getCodeColor().ordinal();
         color = color == (CodePeg.CodeColor.values().length - 1) ? 1 : ++color;
         codePeg.setCodeColor(CodePeg.CodeColor.values()[color]);
-        circle.setFill(GameDraw.getPegFill(codePeg));
+        circle.setFill(GameDraw.getPegFill(codePeg));   //reset circle color == reset CodePeg[] guessPegs color
     }
 
+    //event handler for each code peg when click
     private Circle pegSelector(CodePeg codePeg) {
         Circle circle = new Circle();
         GameDraw.circleFill(circle, codePeg);

@@ -22,15 +22,16 @@ public class MastermindApplication extends Application {
 
         // Add the controls to the grid
         grid.add(controls.getHBoxGuess(), 0, 0);
-        grid.add(controls.getCanvasBoard(), 0, 1);
-        grid.add(controls.getHBoxPicker(), 0,2);
+        grid.add(controls.getvBoxRules(), 0, 1);
+        grid.add(controls.getCanvasBoard(), 0, 2);
+        grid.add(controls.getHBoxPicker(), 0,3);
 
         // Add the GridPane to the Group
         Group group = new Group(grid);
 
         // Build the scene
         Scene scene = new Scene(group);
-        scene.setFill(Color.LIGHTGREEN);
+        scene.setFill(Color.LIGHTBLUE);
 
         // Set the stage
         stage.setTitle("Mastermind");

@@ -36,7 +36,7 @@ public class KeyPeg {
                 return Color.BLACK;
             case None:
             default:
-                return Color.BURLYWOOD;
+                return Color.NAVAJOWHITE;
         }
     }
 }

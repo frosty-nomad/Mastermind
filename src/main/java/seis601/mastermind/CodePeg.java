@@ -49,7 +49,7 @@ public class CodePeg {
                 return Color.BLACK;
             case None:
             default:
-                return Color.BURLYWOOD;
+                return Color.NAVAJOWHITE;
         }
     }
 

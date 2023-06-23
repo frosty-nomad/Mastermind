@@ -74,12 +74,12 @@ public class Row {
     private int[] keyPegColorCount () {
         int[] result = new int[3];  //order = None, White, Black
         for (KeyPeg peg : keyPegs) {
-            if (peg.getColor() == Color.BURLYWOOD) {
-                result[0]++;
+            if (peg.getColor() == Color.BLACK) {
+                result[2]++;
             } else if (peg.getColor() == Color.WHITE) {
                 result[1]++;
             } else {
-                result[2]++;
+                result[0]++;
             }
         }
         return result;
