@@ -13,6 +13,7 @@ public class GameDraw {
     public static int pegSize = 35;
     public static int pegWidth = padding + pegSize;
     public static int rowHeight = pegSize + (padding * 2);
+    public static int centerPadding = 125;
 
     public static void circleFill(Circle circle, CodePeg codePeg) {
         circle.setRadius(GameDraw.pegSize / 2.0);
@@ -26,25 +27,25 @@ public class GameDraw {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         // Resize the canvas
-        canvas.setWidth(width + 4);
+        canvas.setWidth(width + 4 + centerPadding);
         canvas.setHeight((rowHeight * guesses) + 4);
 
         // Draw the board shadow
         gc.setFill(Color.GRAY);
-        gc.fillRect(1, 1, width + 2, (rowHeight * guesses) + 2);
+        gc.fillRect(1 + centerPadding, 1, width + 2, (rowHeight * guesses) + 2);
 
         // Draw the board
         gc.setFill(Color.PEACHPUFF);
-        gc.fillRect(0, 0, width, rowHeight * guesses);
+        gc.fillRect(centerPadding, 0, width , rowHeight * guesses);
 
         // Draw the code/key separator
         gc.setStroke(Color.BEIGE);
-        gc.strokeLine(width - pegWidth - 3, 0, width - pegWidth - 3, (rowHeight * guesses) - 1);
+        gc.strokeLine(width - pegWidth - 3 + centerPadding, 0, width - pegWidth - 3 + centerPadding, (rowHeight * guesses) - 1);
 
         for(int i = 0; i < guesses; i++) {
             drawRow(canvas, i, board.getRow(i));
             if (i < (board.getGuesses() - 1))
-                gc.strokeLine(1, rowHeight * (i + 1), width, rowHeight * (i + 1));
+                gc.strokeLine(1 + centerPadding, rowHeight * (i + 1), width + centerPadding, rowHeight * (i + 1));
         }
     }
 
@@ -77,12 +78,12 @@ public class GameDraw {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        drawCodePeg(gc, padding, yPos, boardRow.getCodePeg(0));
-        drawCodePeg(gc, padding + pegWidth, yPos, boardRow.getCodePeg(1));
-        drawCodePeg(gc, padding + (pegWidth * 2), yPos, boardRow.getCodePeg(2));
-        drawCodePeg(gc, padding + (pegWidth * 3), yPos, boardRow.getCodePeg(3));
+        drawCodePeg(gc, padding + centerPadding , yPos, boardRow.getCodePeg(0));
+        drawCodePeg(gc, padding + centerPadding + pegWidth, yPos, boardRow.getCodePeg(1));
+        drawCodePeg(gc, padding + centerPadding + (pegWidth * 2), yPos, boardRow.getCodePeg(2));
+        drawCodePeg(gc, padding + centerPadding + (pegWidth * 3), yPos, boardRow.getCodePeg(3));
 
-        drawKeyPegs(gc, padding + (pegWidth * 4), yPos, boardRow);
+        drawKeyPegs(gc, padding + centerPadding + (pegWidth * 4), yPos, boardRow);
     }
 
     public static RadialGradient getPegFill(CodePeg codePeg) {

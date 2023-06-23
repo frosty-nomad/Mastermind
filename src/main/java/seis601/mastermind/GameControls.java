@@ -86,7 +86,7 @@ public class GameControls {
 
     private void buildGuessSelector() {
         Label lblGuesses = new Label("Guesses: ");
-        lblGuesses.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 16));
+        lblGuesses.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, 16));
 
         ComboBox<Integer> cboGuesses = new ComboBox<>();
         cboGuesses.getItems().addAll(12, 11, 10, 9, 8);
@@ -109,7 +109,7 @@ public class GameControls {
 
     private void buildPegPicker() {
         Button guessButton = new Button("Guess");
-        guessButton.setFont(Font.font("Comic Sans MS", FontWeight.BOLD, 16));
+        guessButton.setFont(Font.font("Comic Sans MS", FontWeight.EXTRA_BOLD, 16));
         guessButton.setOnAction(e -> {
             guessClick();
         });
@@ -122,8 +122,8 @@ public class GameControls {
         };
 
         hBoxPicker = new HBox();
-        hBoxPicker.setPadding(new Insets(0, 0, 0, 6));
-        hBoxPicker.setSpacing(6);
+        hBoxPicker.setPadding(new Insets(0, 0, 0, 34));
+        hBoxPicker.setSpacing(8);
         hBoxPicker.setAlignment(Pos.CENTER);
         hBoxPicker.getChildren().addAll(
                 pegSelectors[0],
@@ -138,9 +138,9 @@ public class GameControls {
         Label whiteKeyMeaning = new Label("White key peg: Color is correct but wrong position.");
         Label blackKeyMeaning = new Label( "Black key peg: Color and position both correct. ");
         Label keyPegPosition = new Label("The arrangement of the white and black key pegs does not matter. ");
-        whiteKeyMeaning.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, 15));
-        blackKeyMeaning.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, 15));
-        keyPegPosition.setFont(Font.font("Comic Sans MS", FontWeight.NORMAL, 15));
+        whiteKeyMeaning.setFont(Font.font("Comic Sans MS", FontWeight.SEMI_BOLD, 15));
+        blackKeyMeaning.setFont(Font.font("Comic Sans MS", FontWeight.SEMI_BOLD, 15));
+        keyPegPosition.setFont(Font.font("Comic Sans MS", FontWeight.SEMI_BOLD, 15));
 
         vBoxRules = new VBox();
         vBoxRules.setSpacing(8);

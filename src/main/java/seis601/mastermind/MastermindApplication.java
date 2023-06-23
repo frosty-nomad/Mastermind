@@ -31,7 +31,7 @@ public class MastermindApplication extends Application {
 
         // Build the scene
         Scene scene = new Scene(group);
-        scene.setFill(Color.LIGHTBLUE);
+        scene.setFill(Color.rgb(159, 202, 220));
 
         // Set the stage
         stage.setTitle("Mastermind");
