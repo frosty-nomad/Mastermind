@@ -22,7 +22,7 @@ public class MastermindApplication extends Application {
 
         // Add the controls to the grid
         grid.add(controls.getHBoxGuess(), 0, 0);
-        grid.add(controls.getvBoxRules(), 0, 1);
+        grid.add(controls.getVBoxRules(), 0, 1);
         grid.add(controls.getCanvasBoard(), 0, 2);
         grid.add(controls.getHBoxPicker(), 0,3);
 

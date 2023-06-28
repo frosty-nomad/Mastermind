@@ -23,22 +23,12 @@ public class Row {
         return index < codePegs.length ? codePegs[index] : null;
     }
 
-    public void setCodePeg(int index, CodePeg.CodeColor codeColor) {
-        if (index < codePegs.length)
-            codePegs[index].setCodeColor(codeColor);
-    }
-
     public KeyPeg getKeyPeg(int index) {
         return index < keyPegs.length ? keyPegs[index] : null;
     }
 
     public KeyPeg[] getKeyPegs(){
         return keyPegs;
-    }
-
-    public void setKeyPeg(int index, KeyPeg.KeyColor keyColor) {
-        if (index < keyPegs.length)
-            keyPegs[index].setKeyColor(keyColor);
     }
 
     public Boolean isWinner(){

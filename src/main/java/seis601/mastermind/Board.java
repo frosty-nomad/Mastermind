@@ -1,20 +1,19 @@
 package seis601.mastermind;
 
 public class Board {
-    private final int guesses;   //how many chances total
+    private final int GUESSES;   //how many chances total
     private Row[] rows;
     private CodePeg[] keyCode;  //answer
     private int currentGuess;
     
     // Constructors
     public Board(int guesses) {
-        this.guesses = guesses;
+        this.GUESSES = guesses;
         keyCode = new CodePeg[4];
         rows = new Row[guesses];
         for (int i = 0; i < guesses; i++) {
             rows[i] = new Row();
         }
-        currentGuess = 0;
         generateKeyCode();
     }
 
@@ -42,15 +41,15 @@ public class Board {
      }
 
     public boolean isFull(){
-        return currentGuess >= guesses;
+        return currentGuess >= GUESSES;
     } //ran out of chance
 
     public Row getRow(int index) {
-        return index < guesses ? rows[index] : new Row();
+        return index < GUESSES ? rows[index] : new Row();
     }
 
     public int getGuesses() {
-        return guesses;
+        return GUESSES;
     }
 
     private CodePeg[] copyCodePegs(CodePeg[] codePegs) {

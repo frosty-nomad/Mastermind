@@ -60,7 +60,7 @@ public class GameControls {
         return hBoxPicker;
     }
 
-    public VBox getvBoxRules() {
+    public VBox getVBoxRules() {
         return vBoxRules;
     }
 
