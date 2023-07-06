@@ -17,8 +17,8 @@ class RowTest {
         Row r = new Row(guesses, answer);
         assertEquals(false, r.isWinner());
 
-        KeyPeg[] checkKeyPegs = r.getKeyPegs();
-        int[] guessColorCount = keyPegColorCount(checkKeyPegs);
+        KeyPeg[] guessKeyPegs = r.getKeyPegs();
+        int[] guessColorCount = keyPegColorCount(guessKeyPegs);
 
 
         KeyPeg[] answerKeyPegs = {new KeyPeg(KeyPeg.KeyColor.White), new KeyPeg(KeyPeg.KeyColor.None),

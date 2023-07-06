@@ -29,7 +29,7 @@ public class Row {
 
     public KeyPeg[] getKeyPegs(){
         return keyPegs;
-    }
+    }  //for unit test
 
     public Boolean isWinner(){
         int [] colorCount = keyPegColorCount(); //order = None, White, Black
